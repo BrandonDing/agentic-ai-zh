@@ -97,6 +97,7 @@ html[data-reading-size="large"] .vp-doc { font-size: 19.5px; }
 }
 
 .reader-tools {
+  position: static;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -348,7 +349,12 @@ html[data-reading-size="large"] .vp-doc { font-size: 19.5px; }
   letter-spacing: 0.02em;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 959px) {
+  .Layout .VPLocalNav.VPLocalNav {
+    position: relative;
+    top: auto;
+  }
+
   .part-list a {
     grid-template-columns: 1fr;
     gap: 0.25rem;
