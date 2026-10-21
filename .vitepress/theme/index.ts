@@ -1,3 +1,7 @@
+import "@fontsource/jetbrains-mono/latin-400.css";
+import "@fontsource/jetbrains-mono/latin-500.css";
+import "@fontsource/jetbrains-mono/latin-ext-400.css";
+import "@fontsource/jetbrains-mono/latin-ext-500.css";
 import DefaultTheme from "vitepress/theme";
 import Layout from "./Layout.vue";
 import BookHome from "./components/BookHome.vue";

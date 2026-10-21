@@ -1,6 +1,10 @@
 :root {
-  --vp-font-family-base: "Iowan Old Style", Palatino, "Palatino Linotype", "Songti SC", "Noto Serif SC", serif;
-  --vp-font-family-mono: ui-monospace, "SFMono-Regular", "Sarasa Mono SC", monospace;
+  --vp-font-family-base:
+    "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Noto Sans CJK SC",
+    "Source Han Sans SC", "Microsoft YaHei", "微软雅黑", "Segoe UI", system-ui, sans-serif;
+  --vp-font-family-mono:
+    "JetBrains Mono", "Sarasa Mono SC", ui-monospace, "SFMono-Regular",
+    "Cascadia Mono", Menlo, Consolas, "PingFang SC", "Microsoft YaHei", monospace;
   --vp-c-bg: #f6f1e7;
   --vp-c-bg-soft: #efe7d8;
   --vp-c-bg-alt: #efe7d8;
@@ -41,16 +45,49 @@
 html[data-reading-size="small"] .vp-doc { font-size: 15px; }
 html[data-reading-size="large"] .vp-doc { font-size: 19.5px; }
 
-.VPNav,
-.VPNavBar,
-.reader-tools,
-.book-home .actions,
-.book-contents {
-  font-family: "Avenir Next", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", sans-serif;
+.vp-doc {
+  font-size: 16.5px;
+  line-height: 1.9;
 }
 
-.vp-doc {
-  line-height: 1.85;
+.vp-doc :not(pre) > code,
+.vp-doc div[class*="language-"],
+.vp-doc div[class*="language-"] code {
+  font-family: var(--vp-font-family-mono);
+  font-variant-ligatures: none;
+}
+
+.vp-doc div[class*="language-"] {
+  line-height: 1.7;
+}
+
+.vp-doc mjx-container {
+  display: inline-block;
+  max-width: 100%;
+  overflow: visible;
+  vertical-align: middle;
+  line-height: 0;
+}
+
+.vp-doc mjx-container > svg {
+  overflow: visible;
+  vertical-align: middle;
+}
+
+.vp-doc mjx-container[display="true"] {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.55em 0;
+  margin: 1em 0;
+  line-height: 0;
+}
+
+.vp-doc mjx-container[display="true"] > svg {
+  display: block;
+  max-width: none;
+  margin: 0 auto;
+  vertical-align: top;
 }
 
 .vp-doc img {
@@ -60,20 +97,22 @@ html[data-reading-size="large"] .vp-doc { font-size: 19.5px; }
 }
 
 .reader-tools {
-  position: sticky;
-  top: 64px;
-  z-index: 10;
-  margin: 0 0 1.25rem;
-  padding: 0.55rem 0 0.35rem;
-  background: var(--vp-c-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin: 0 0 22px;
+  padding: 0 0 14px;
   border-bottom: 1px solid var(--line);
+  font-size: 13px;
 }
 
 .reader-tools .where,
 .reader-tools .controls {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem 1rem;
+  gap: 0.35rem 0.85rem;
   align-items: center;
   margin: 0;
 }
@@ -84,12 +123,23 @@ html[data-reading-size="large"] .vp-doc { font-size: 19.5px; }
 }
 
 .reader-tools .progress {
-  margin-left: auto;
   font-variant-numeric: tabular-nums;
 }
 
-.reader-tools .controls {
-  margin-top: 0.35rem;
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 2px;
+  pointer-events: none;
+}
+
+.reading-progress span {
+  display: block;
+  height: 100%;
+  background: var(--vp-c-brand-1);
 }
 
 .reader-tools button {
@@ -109,39 +159,36 @@ html[data-reading-size="large"] .vp-doc { font-size: 19.5px; }
   border-color: var(--ink);
 }
 
-.reader-tools .meter {
-  height: 2px;
-  margin-top: 0.45rem;
-  background: var(--line);
-}
-
-.reader-tools .meter span {
-  display: block;
-  height: 100%;
-  background: var(--vp-c-brand-1);
-}
-
 .lightbox {
   position: fixed;
   inset: 0;
-  z-index: 100;
-  display: grid;
-  place-items: center;
-  padding: 2rem;
-  background: rgba(20, 16, 12, 0.82);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  background: rgba(20, 16, 12, 0.88);
 }
 
 .lightbox img {
-  max-width: min(1100px, 100%);
-  max-height: 82vh;
+  display: block;
+  width: auto;
+  height: auto;
+  min-width: 0;
+  min-height: 0;
+  max-width: calc(100vw - 32px - env(safe-area-inset-left) - env(safe-area-inset-right));
+  max-height: calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  margin: 0;
+  object-fit: contain;
   background: white;
   cursor: default;
 }
 
 .lightbox button {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: max(12px, env(safe-area-inset-top));
+  right: max(12px, env(safe-area-inset-right));
   border: 0;
   background: #fffaf3;
   color: #221c18;
@@ -237,42 +284,74 @@ html[data-reading-size="large"] .vp-doc { font-size: 19.5px; }
 }
 
 .book-contents {
-  max-width: 760px;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
 }
 
 .book-contents h1 {
   margin-top: 0;
+  border: 0;
 }
 
-.book-contents section + section {
-  margin-top: 2rem;
+.book-contents section {
+  border-top: 1px solid var(--line);
 }
 
-.book-contents h2 {
+.book-contents .part-head {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem 0.8rem;
   align-items: baseline;
-  border: 0;
-  margin-bottom: 0.35rem;
-}
-
-.book-contents ol {
-  padding-left: 1.2rem;
-}
-
-.book-contents a {
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  padding: 1.05rem 0 0.2rem;
   color: inherit;
+  text-decoration: none;
+}
+
+.book-contents .part-head strong {
+  font-size: 1.15rem;
+  font-weight: 650;
+}
+
+.book-contents .part-head:hover strong {
+  color: var(--vp-c-brand-1);
+}
+
+.book-contents ul {
+  list-style: none;
+  margin: 0 0 0.45rem;
+  padding: 0;
+}
+
+.book-contents li a {
+  display: block;
+  margin: 0 -0.55rem;
+  padding: 0.42rem 0.55rem;
+  border-radius: 8px;
+  color: var(--vp-c-text-1);
+  line-height: 1.55;
+  text-decoration: none;
+}
+
+.book-contents li a:hover {
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-brand-1);
+}
+
+.VPSidebarItem .text {
+  line-height: 1.65;
+}
+
+.VPSidebarItem.level-0 > .item > .link > .text {
+  font-size: 13px;
+  letter-spacing: 0.02em;
 }
 
 @media (max-width: 640px) {
   .part-list a {
     grid-template-columns: 1fr;
     gap: 0.25rem;
-  }
-
-  .reader-tools {
-    top: 56px;
   }
 }
 
@@ -281,6 +360,7 @@ html[data-reading-size="large"] .vp-doc { font-size: 19.5px; }
   .VPSidebar,
   .VPDocAside,
   .reader-tools,
+  .reading-progress,
   .VPFooter,
   .lightbox,
   .prev-next,

@@ -2,45 +2,43 @@
 import { withBase } from "vitepress";
 import { chapterRoute, hrefFor, opening, parts } from "../../catalog.mjs";
 
-const openingLinks = opening.map(([route, , title]) => ({
-  title,
-  href: withBase(hrefFor(route)),
-}));
-
-const partLinks = parts.map((part) => ({
-  ...part,
-  chapters: part.chapters.map(([number, , title]) => ({
-    title,
-    href: withBase(hrefFor(chapterRoute(part.id, number))),
+const sections = [
+  {
+    title: "开篇",
+    meta: "Preface",
+    href: withBase(hrefFor(opening[0][0])),
+    items: opening.map(([route, , title]) => ({
+      title,
+      href: withBase(hrefFor(route)),
+    })),
+  },
+  ...parts.map((part) => ({
+    title: part.title,
+    meta: `${part.english} · ${part.range}`,
+    href: withBase(hrefFor(chapterRoute(part.id, part.chapters[0][0]))),
+    items: part.chapters.map(([number, , title]) => ({
+      title,
+      href: withBase(hrefFor(chapterRoute(part.id, number))),
+    })),
   })),
-}));
+];
 </script>
 
 <template>
   <div class="book-contents">
     <h1>全书目录</h1>
-    <p class="note">地址按篇固定。章节改标题时，公开链接仍是 <code>/篇/chapter-编号.html</code>。</p>
+    <p class="note">点篇名进入该篇第一页，点章节名进入正文。</p>
 
-    <section>
-      <h2>开篇</h2>
-      <ol>
-        <li v-for="item in openingLinks" :key="item.href">
+    <section v-for="section in sections" :key="section.title">
+      <a class="part-head" :href="section.href">
+        <strong>{{ section.title }}</strong>
+        <small>{{ section.meta }}</small>
+      </a>
+      <ul>
+        <li v-for="item in section.items" :key="item.href">
           <a :href="item.href">{{ item.title }}</a>
         </li>
-      </ol>
-    </section>
-
-    <section v-for="part in partLinks" :key="part.id">
-      <h2>
-        <span>{{ part.title }}</span>
-        <small>{{ part.english }} · {{ part.range }}</small>
-      </h2>
-      <p>{{ part.description }}</p>
-      <ol>
-        <li v-for="chapter in part.chapters" :key="chapter.href">
-          <a :href="chapter.href">{{ chapter.title }}</a>
-        </li>
-      </ol>
+      </ul>
     </section>
   </div>
 </template>

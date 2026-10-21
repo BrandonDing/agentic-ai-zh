@@ -56,22 +56,27 @@ export const pages = [...guidePages, ...openingPages, ...chapterPages];
 
 export const readingOrder = pages.filter((item) => item.kind !== "site");
 
+function group(text, link, items) {
+  return { text, link, collapsed: false, items };
+}
+
 export const sidebar = [
-  {
-    text: "开篇",
-    items: openingPages.map((item) => ({ text: item.title, link: item.href })),
-  },
-  ...parts.map((part) => ({
-    text: `${part.title}`,
-    items: part.chapters.map(([number, , title]) => ({
-      text: title,
-      link: hrefFor(chapterRoute(part.id, number)),
-    })),
-  })),
-  {
-    text: "附录",
-    items: [{ text: "术语对照表", link: "/GLOSSARY.html" }],
-  },
+  group(
+    "开篇",
+    hrefFor("preface"),
+    openingPages.map((item) => ({ text: item.title, link: item.href })),
+  ),
+  ...parts.map((part) =>
+    group(
+      part.title,
+      hrefFor(chapterRoute(part.id, part.chapters[0][0])),
+      part.chapters.map(([number, , title]) => ({
+        text: title,
+        link: hrefFor(chapterRoute(part.id, number)),
+      })),
+    ),
+  ),
+  group("附录", "/GLOSSARY.html", [{ text: "术语对照表", link: "/GLOSSARY.html" }]),
 ];
 
 const byRoute = new Map(pages.map((item) => [`${item.route}.md`, item]));

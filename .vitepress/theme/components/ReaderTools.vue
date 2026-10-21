@@ -56,10 +56,12 @@ function openImage(event) {
   const img = event.target.closest?.(".vp-doc img");
   if (!img || img.closest("a")) return;
   viewer.value = { open: true, src: img.currentSrc || img.src, alt: img.alt || "正文插图" };
+  document.documentElement.style.overflow = "hidden";
 }
 
 function closeImage() {
   viewer.value = { open: false, src: "", alt: "" };
+  document.documentElement.style.overflow = "";
 }
 
 function onKey(event) {
@@ -87,6 +89,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   clearTimeout(timer);
+  document.documentElement.style.overflow = "";
   window.removeEventListener("scroll", onScroll);
   document.removeEventListener("click", openImage);
   document.removeEventListener("keydown", onKey);
@@ -119,11 +122,22 @@ watch(() => route.path, () => {
       </div>
       <button type="button" @click="printPage">打印本章</button>
     </div>
-    <div class="meter" aria-hidden="true"><span :style="{ width: progress + '%' }" /></div>
+  </div>
+  <div v-if="frontmatter.reader" class="reading-progress" aria-hidden="true">
+    <span :style="{ width: progress + '%' }" />
   </div>
 
-  <div v-if="viewer.open" class="lightbox" role="dialog" aria-modal="true" :aria-label="viewer.alt" @click="closeImage">
-    <img :src="viewer.src" :alt="viewer.alt" @click.stop />
-    <button type="button" @click="closeImage">关闭</button>
-  </div>
+  <Teleport to="body">
+    <div
+      v-if="viewer.open"
+      class="lightbox"
+      role="dialog"
+      aria-modal="true"
+      :aria-label="viewer.alt"
+      @click="closeImage"
+    >
+      <img :src="viewer.src" :alt="viewer.alt" @click.stop />
+      <button type="button" @click="closeImage">关闭</button>
+    </div>
+  </Teleport>
 </template>
