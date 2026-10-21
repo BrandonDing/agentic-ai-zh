@@ -1,16 +1,71 @@
-CC BY-SA 4.0
+本仓库里的材料许可不同，请按路径区分。
 
-本阅读站是一部演绎作品，采用 Creative Commons Attribution-ShareAlike 4.0 International 许可。
-完整法律文本：https://creativecommons.org/licenses/by-sa/4.0/legalcode
+1. 正文与插图：CC BY-SA 4.0
+2. 本站自己编写的阅读站代码：MIT
+3. 构建时打包的第三方软件：保持它们各自的许可，见 website/notices.md
 
-署名
+完整的 CC BY-SA 4.0 法律文本：
+https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+================================================================
+正文与插图（CC BY-SA 4.0）
+================================================================
+
+适用路径：
+
+- chapters/
+- images/
+- GLOSSARY.md
+
+这些是一部演绎作品。
 
 - 原作者：Haggai Roitman
 - 原书：The Hitchhiker's Guide to Agentic AI: From Foundations to Systems
-  v1.2.2，2026
-  https://arxiv.org/abs/2606.24937
+- 原书版本：v1.2.2，2026
+- 原文与许可：https://arxiv.org/abs/2606.24937
+  arXiv 页面标明该文采用 CC BY-SA 4.0
 - 中文译文：https://github.com/luckinbyte/agentic-ai-zh
-  该译本声明其许可继承原书的 CC BY-SA 4.0
-- 本站：重新编排阅读结构。正文沿用 v1.2.2 译文，未按 arXiv v3 校订。
+  该仓库以 CC BY-SA 4.0 发布译文，并写明继承原书许可
+- 插图来自上述译本，随译文一并使用，不单独更换许可
 
-你可以共享和改编本作品，包括商业用途。若分发演绎作品，须给出上述署名、附上许可链接、说明修改，并以 CC BY-SA 4.0（或兼容许可）发布。
+本仓库对这部作品的修改：
+
+- 沿用 v1.2.2 译文和插图，没有按 arXiv 上更新的 v3 重译或校订
+- 重新编排了阅读结构（分篇、稳定网址、目录、搜索和离线外壳）
+- 没有复制 luckinbyte 仓库里的构建脚本
+
+你可以共享和改编这部分，包括商业用途。分发演绎作品时必须：
+
+- 署上 Haggai Roitman、luckinbyte 译本和本阅读站
+- 提供 https://creativecommons.org/licenses/by-sa/4.0/ 的链接
+- 说明做了修改
+- 以 CC BY-SA 4.0 或兼容许可发布你的演绎作品
+
+================================================================
+本站自己编写的代码（MIT）
+================================================================
+
+适用路径：本仓库中除上述正文、插图、术语表以外、由本阅读站编写的文件，
+包括 .vitepress/、website/ 中的说明页、scripts/ 和 .github/。
+
+Copyright (c) 2026 BrandonDing
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+第三方软件不因这份 MIT 许可而改变其原许可。正文与插图也不适用这份 MIT 许可。

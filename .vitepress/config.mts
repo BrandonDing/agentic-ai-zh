@@ -142,8 +142,9 @@ const vitepress = defineConfig({
       },
     },
     footer: {
-      message: "Haggai Roitman 原著 · luckinbyte 译本 · 本站重新编排阅读结构",
-      copyright: "CC BY-SA 4.0",
+      message:
+        '正文与插图：Haggai Roitman 原著，<a href="https://github.com/luckinbyte/agentic-ai-zh">luckinbyte</a> 译本 v1.2.2。本站只改了阅读结构。',
+      copyright: `<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh">CC BY-SA 4.0</a> · <a href="${base}about.html">署名</a> · <a href="${base}notices.html">软件许可</a>`,
     },
   },
 });

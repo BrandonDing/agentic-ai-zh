@@ -107,6 +107,7 @@ export const guides = [
   ["contents", "website/contents.md", "全书目录"],
   ["reading-guide", "website/reading-guide.md", "阅读指南"],
   ["about", "website/about.md", "关于"],
+  ["notices", "website/notices.md", "软件许可"],
   ["GLOSSARY", "GLOSSARY.md", "术语对照表"],
 ];
 
